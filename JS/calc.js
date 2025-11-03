@@ -3,6 +3,7 @@ let allBtn = document.querySelectorAll("button");
 let val1 = document.getElementById("val1");
 let val2 = document.getElementById("val2");
 let result = document.getElementById("result");
+let memory = document.getElementById("memory");
 
 allBtn.forEach((btn) => {
     
@@ -28,6 +29,18 @@ allBtn.forEach((btn) => {
             result.innerText = "Error: " + res.message;
         } else {
             result.innerText = "Result: " + res;
+
+            let mylog = new mylog(a, b, operation);
+
+            let btnload = document.createElement("button");
+            btnload.innerText = "LOAD";
+            btnload.addEventListener("click", mylog.fnLoad);
+
+            let LogLine = document.createElement("li");
+            LogLine.innerText = `Eseguito ${mylog.val1} ${mylog.operation} ${mylog.val2}`;
+            LogLine.append(btnload);
+            
+            memory.appendChild(LogLine);
         }
 
         console.log("Res: ", res); 
@@ -63,6 +76,19 @@ function performOperation(a, b, operation) {
     }
 }
 
+function MyLog(a, b, operation){
+
+    this.val1 = a;
+    this.val2 = b;
+    this.operation = operation;
+
+    this.fnload = function (){
+
+        console.log("LOAD", this.val1, this.val2);
+        val1.value = this.val1;
+        val2.value = this.val2;
+    }
+}
 
 //funzioni
 
